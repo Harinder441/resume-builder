@@ -10,7 +10,7 @@ const errorHandler = (err, req, res, next) => {
     res.locals.errorMessage = err.message;
 
     const response = {
-        code: statusCode,
+        code: statusCode || 500,
         message,
         ...(config.env === "development" && { stack: err.stack }),
     };
@@ -19,7 +19,7 @@ const errorHandler = (err, req, res, next) => {
         console.error(err);
     }
 
-    res.status(statusCode).send(response);
+    res.status(statusCode || 500).send(response);
 };
 
 module.exports = {

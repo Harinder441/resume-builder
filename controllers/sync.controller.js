@@ -1,4 +1,6 @@
+const httpStatus = require("http-status");
 const { getSyncMapping, createSyncMapping } = require('../services/sync.service');
+const catchAsync = require("../utils/catchAsync");
 
 const getSyncMappingController = async (req, res, next) => {
   try {
@@ -9,15 +11,12 @@ const getSyncMappingController = async (req, res, next) => {
   }
 };
 
-const createSyncMappingController = async (req, res, next) => {
-  const { modelName, columnMapObject, NotionDBId } = req.body;
-  try {
-    const newSyncMapping = await createSyncMapping(modelName, columnMapObject, NotionDBId);
-    res.status(201).json(newSyncMapping);
-  } catch (error) {
-    next(error);
-  }
-};
+const createSyncMappingController =  catchAsync(async (req, res, next) => {
+  const mapBody = req.body;
+  const newSyncMapping = await createSyncMapping(mapBody);
+  res.status(httpStatus.CREATED).send(newSyncMapping);
+  
+});
 
 module.exports = {
   getSyncMappingController,

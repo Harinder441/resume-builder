@@ -3,25 +3,25 @@
 const express = require("express");
 const app = express();
 const mongoose = require('mongoose');
-const notionService  = require('./services/notion.service')
-const syncMappingRoutes = require('./routes/sync.route');
-const notionRoutes = require('./routes/notion.route');
+const routes = require("./routes");
+const ApiError = require("./utils/ApiError");
+const httpStatus = require("http-status");
+const { errorHandler } = require("./middlewares/error");
+const config = require("./config/config");
+
+// parse
 app.use(express.json());
 
 const port = 8082;
 
-app.get("/", (req, res) => {
-  res.send("Hello");
+app.use("/", routes);
+app.use((req, res, next) => {
+  next(new ApiError(httpStatus.NOT_FOUND, "Not found"));
 });
+app.use(errorHandler);
 
-// app.use('/discussion', discussionRoutes);
 mongoose
-  .connect("mongodb://127.0.0.1:27017", {
-    useCreateIndex: true,
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useFindAndModify: false,
-  })
+  .connect(config.mongoose.url, config.mongoose.options)
   .then(() => {
     console.log("Connected to MongoDB");
     app.listen(port, () => {

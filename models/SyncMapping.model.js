@@ -14,6 +14,10 @@ const SyncMappingSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  lastSyncedTime:{
+    type:Date,
+    default:null
+  }
 });
 
 const SyncMapping = mongoose.model('SyncMapping', SyncMappingSchema);

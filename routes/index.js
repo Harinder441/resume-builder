@@ -5,7 +5,7 @@ const notionRoutes = require('./notion.route');
 const router = express.Router();
 
 
-app.use('/sync-mapping', syncMappingRoutes);
-app.use('/notion', notionRoutes);
+router.use('/sync-mapping', syncMappingRoutes);
+router.use('/notion', notionRoutes);
 
 module.exports = router;

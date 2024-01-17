@@ -2,9 +2,9 @@
 const mongoose = require('mongoose');
 
 const syncSchema = new mongoose.Schema({
-  lastSyncDate: { type: Date, default: Date.now },
-  // Add other fields for sync info
-});
+  totalRowSynced:{type:Number},
+  syncMessage:{type:String},
+},{timestamps:true});
 
 const Sync = mongoose.model('Sync', syncSchema);
 

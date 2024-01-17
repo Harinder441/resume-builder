@@ -1,17 +1,25 @@
-const { getColumnMap } = require('../services/notion.service');
+const notionService = require('../services/notion.service');
 
-const getDatabaseColumns = async (req, res, next) => {
-  try {
+const getDatabaseColumns = async (req, res) => {
     const db_id = req.params.id;
-    const list = await getColumnMap(db_id);
+    const list = await notionService.getColumnMap(db_id);
     res.json(list);
-  } catch (error) {
-    next(error);
-  }
+};
+
+const getDataFromDB = async (req, res) => {
+    const db_id = req.params.id;
+    const list = await notionService.getDataFromNotionDB(db_id);
+    res.json(list);
+};
+const syncNotionDataWithServer = async (req, res) => {
+  await notionService.syncData();
+  res.json("Successfully Synced");
 };
 
 
 
 module.exports = {
   getDatabaseColumns,
+  getDataFromDB,
+  syncNotionDataWithServer
 };

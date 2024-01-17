@@ -1,0 +1,32 @@
+[{
+  "modelName":"EducationDB",
+  "columnMapObject":{
+      "degree": "%3AQu%3C",
+      "startDate": "%3Bnt%3F",
+      "institution": "%3DDmB",
+      "endDate": "TuW~",
+      "score": "Xv%3Ah",
+      "scoreType": "YSR%3B",
+      "location": "%5BmEp",
+      "title": "title"
+    }, 
+  "NotionDBId":"b80a38cd459b48768e4dd8be80cdddde"
+},
+{
+  "modelName":"ProjectsDB",
+  "columnMapObject":{
+    "skills": "%3DbC%3A",
+    "liveUrl": "%3FXlH",
+    "endDate": "PbXH",
+    "repoUrl": "RWD%3C",
+    "status": "%5C%3Dk%7C",
+    "startDate": "bCVL",
+    "description": "h%5Byy",
+    "postUrl": "vOvg",
+    "type": "x_%5Cm",
+    "title": "title",
+    "name": "title"
+  }, 
+  "NotionDBId":"5d92a033716f4f6ea8ddc806ac6232a6"
+  }
+]

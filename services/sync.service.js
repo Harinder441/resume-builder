@@ -1,15 +1,16 @@
-const SyncMapping = require('../models/SyncMapping.model');
-
+const {SyncMapping} = require('../models');
+const ApiError = require("../utils/ApiError");
+const httpStatus = require("http-status");
 const getSyncMapping = async () => {
   return SyncMapping.find();
 };
 
-const createSyncMapping = async (modelName, columnMapObject, NotionDBName) => {
-  const syncMapping = new SyncMapping({
-    modelName,
-    columnMapObject,
-    NotionDBName,
-  });
+const createSyncMapping = async (mapBody) => {
+  const isAlreadyExist = await SyncMapping.findOne({modelName:mapBody.modelName});
+  if(isAlreadyExist){
+    throw new ApiError(httpStatus.BAD_REQUEST,"Map already Exist");
+  }
+  const syncMapping = await SyncMapping.create(mapBody);
   return syncMapping.save();
 };
 
