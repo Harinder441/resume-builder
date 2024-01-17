@@ -1,0 +1,120 @@
+{
+  "recentlyUpdated": {
+    "keys": [],
+    "lastUpdated": "2024-01-16T07:54:55.753Z"
+  },
+  "user": {
+    "id": 118764,
+    "uid": "21754972",
+    "name": "harinder singh",
+    "role": "",
+    "companyName": "",
+    "lastActiveToken": "",
+    "createdAt": "2023-05-04T07:30:54.154Z",
+    "updatedAt": "2023-05-04T07:30:54.154Z",
+    "lastNotificationCheck": "2023-08-30T16:11:45.550Z",
+    "incompleteResumeEmailCount": 0,
+    "reviewer": false,
+    "hacker_id": "21754972",
+    "username": "harinder441",
+    "email": "harindersingh2107@gmail.com",
+    "secondary_emails": [],
+    "banners": {}
+  },
+  "links": [
+    {
+      "id": 144690,
+      "network": "Linkedin",
+      "username": "",
+      "url": "https://www.linkedin.com/in/harindersingh441/",
+      "resumeId": 100001,
+      "createdAt": "2023-05-12T06:37:28.506Z",
+      "updatedAt": "2023-05-12T06:37:28.506Z"
+    }
+  ],
+  "education": [
+    {
+      "id": 149776,
+      "degree": "-Software Development",
+      "startDate": "May 2023",
+      "completionDate": "March 2024",
+      "institution": "Crio.Do",
+      "location": "Remote",
+      "score": "",
+      "scoreType": "CGPA",
+      "studyType": "Fellowship Program",
+      "sortOrderId": 0,
+      "resumeId": 100001,
+      "createdAt": "2023-08-03T05:08:12.990Z",
+      "updatedAt": "2023-08-03T05:08:12.990Z"
+    }
+  ],
+  "skills": [
+    {
+      "id": 399993,
+      "skillType": "database",
+      "skillValue": "skill",
+      "createdAt": "2023-05-12T06:37:28.506Z",
+      "updatedAt": "2023-05-12T06:37:28.506Z"
+    }
+  ],
+  "work": [
+    {
+      "id": 102580,
+      "description": "-Utilizing React, Inertia, Laravel 9, and MySQL for project development.\n-Designed and implemented a visually appealing admin panel for student examination, Bug Tracker, Student Portal and expense management using Material UI React.\n-Developed robust and user-friendly features to enhance overall application functionality.\n-Successfully managed project timelines and delivered projects on time.",
+      "endDate": "Present",
+      "currentJob": false,
+      "role": "Full Stack Web Developer",
+      "location": "Remote (Delhi/India)",
+      "company": "Kalgidhar Trust,",
+      "startDate": "Jun 2023",
+      "sortOrderId": 0,
+      "resumeId": 100001,
+      "createdAt": "2023-08-03T04:46:10.409Z",
+      "updatedAt": "2023-08-03T04:46:10.409Z"
+    }
+  ],
+  "projects": [
+    {
+      "id": 382125,
+      "name": "QKart",
+      "description": "QKart is an E-commerce application offering a variety of products for customers to choose from. \nDuring the course of this project,\n- Implemented the core logic for authentication, shopping cart and checkout\n- Improved UI by adding responsive design elements for uniform experience across different devices\n- Built the complete set of REST APIs for an E-commerce application following the best practices\n- Used MongoDB NoSQL database for data storage\n- Wrote unit and integration tests to test the implementation\n",
+      "skills": [
+        "Javascript,React Js, Node Js, MongoDB, Mongoose, Jest, "
+      ],
+      "url": "https://qkart-backend-harinder.onrender.com/",
+      "sortOrderId": 0,
+      "resumeId": 100001,
+      "createdAt": "2024-01-16T07:19:22.804Z",
+      "updatedAt": "2024-01-16T07:19:22.804Z"
+    }
+  ],
+  "awards": [
+    {
+      "id": 106475,
+      "summary": "Got certification for C, C++ and Python Programming Language from Bombay IIT",
+      "sortOrderId": 0,
+      "resumeId": 100001,
+      "createdAt": "2023-05-12T06:37:28.506Z",
+      "updatedAt": "2023-05-12T06:37:28.506Z"
+    }
+  ],
+  "certifications": [],
+  "personalInfo": {
+    "FirstName": "Harinder",
+    "LastName": "Singh",
+    "Heading": "",
+    "Email": "harindersingh2107@gmail.com",
+    "Address": "Sirsa,Haryana",
+    "PhoneNumber": "8901116612"
+  },
+  "banners": {},
+  "resumeOldVersion": {},
+  "focusedField": null,
+  "id": 100001,
+  "resumeId": 100001,
+  "uuid": "33e5f8b8-7259-4cde-8ca6-cc02964df601",
+  "templateId": 4,
+  "cvName": "Harinder's Resume",
+  "isShared": true
+}

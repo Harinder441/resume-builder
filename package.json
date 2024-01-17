@@ -11,6 +11,7 @@
     "license": "ISC",
     "dependencies": {
         "@babel/core": "^7.17.10",
+        "@notionhq/client": "^2.2.14",
         "@testing-library/dom": "^8.13.0",
         "cors": "^2.8.5",
         "dotenv": "^8.6.0",

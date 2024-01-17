@@ -5,6 +5,7 @@ const app = express();
 const mongoose = require('mongoose');
 const userRoutes = require('./routes/user.routes');
 const discussionRoutes = require('./routes/discussion.routes');
+const notionService  = require('./services/notion.service')
 app.use(express.json());
 
 const port = 8082;
@@ -12,8 +13,8 @@ const port = 8082;
 app.get("/", (req, res) => {
   res.send("Hello");
 });
-app.use('/user', userRoutes);
-app.use('/discussion', discussionRoutes);
+// app.use('/user', userRoutes);
+// app.use('/discussion', discussionRoutes);
 mongoose
   .connect("mongodb://127.0.0.1:27017", {
     useCreateIndex: true,
