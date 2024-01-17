@@ -2,11 +2,11 @@ const { Client } = require("@notionhq/client");
 const Config = require("../config/config");
 const notion = new Client({ auth: Config.notionAPI });
 // console.log(Config.notionAPI);
-(async () => {
-  const databaseId = Config.notion.socialLinksDB;
-  const ans = await getDataFromNotionDB(databaseId);
-  console.log(ans);
-})();
+// (async () => {
+//   const databaseId = Config.notion.socialLinksDB;
+//   const ans = await getDataFromNotionDB(databaseId);
+//   console.log(ans);
+// })();
 
 async function getDataFromNotionDB(databaseId) {
   const response = await notion.databases.query({
@@ -62,3 +62,20 @@ function extractPropertyValue(property) {
       return null;
   }
 }
+async function getColumnMap(databaseId) {
+  const response = await notion.databases.retrieve({
+    database_id: databaseId
+  });
+  if (!response) {
+    return null;
+  }
+  const { properties } = response;
+  const output = {};
+  Object.entries(properties).forEach(([key, value]) => {
+    output[value.id] = key;
+  });
+  return output;
+}
+module.exports = {
+  getColumnMap
+};
