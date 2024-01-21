@@ -1,6 +1,7 @@
-[{
-  "modelName":"EducationDB",
-  "columnMapObject":{
+[
+  {
+    "modelName": "EducationDB",
+    "columnMapObject": {
       "degree": "%3AQu%3C",
       "startDate": "%3Bnt%3F",
       "institution": "%3DDmB",
@@ -9,24 +10,84 @@
       "scoreType": "YSR%3B",
       "location": "%5BmEp",
       "title": "title"
-    }, 
-  "NotionDBId":"b80a38cd459b48768e4dd8be80cdddde"
-},
-{
-  "modelName":"ProjectsDB",
-  "columnMapObject":{
-    "skills": "%3DbC%3A",
-    "liveUrl": "%3FXlH",
-    "endDate": "PbXH",
-    "repoUrl": "RWD%3C",
-    "status": "%5C%3Dk%7C",
-    "startDate": "bCVL",
-    "description": "h%5Byy",
-    "postUrl": "vOvg",
-    "type": "x_%5Cm",
-    "title": "title",
-    "name": "title"
-  }, 
-  "NotionDBId":"5d92a033716f4f6ea8ddc806ac6232a6"
+    },
+    "NotionDBId": "b80a38cd459b48768e4dd8be80cdddde"
+  },
+  {
+    "modelName": "ProjectsDB",
+    "columnMapObject": {
+      "skills": "%3DbC%3A",
+      "liveUrl": "%3FXlH",
+      "endDate": "PbXH",
+      "repoUrl": "RWD%3C",
+      "status": "%5C%3Dk%7C",
+      "startDate": "bCVL",
+      "description": "h%5Byy",
+      "postUrl": "vOvg",
+      "type": "x_%5Cm",
+      "title": "title",
+      "name": "title"
+    },
+    "NotionDBId": "5d92a033716f4f6ea8ddc806ac6232a6"
+  },
+  {
+    "modelName": "ExperiencesDB",
+    "columnMapObject": {
+      "location": "EqeP",
+      "description": "clnc",
+      "jobTitle": "i%5EfC",
+      "endDate": "o%7Bpz",
+      "startDate": "%7DGrT",
+      "employer": "~%7Bf%5E",
+      "title": "title"
+    },
+    "NotionDBId": "aa7ebab4fa4c4df08990ede7e38a7322"
+  },
+  {
+    "modelName": "HonorsAwardDB",
+    "columnMapObject": {
+      "summary": "C%3CVO",
+      "title": "title"
+    },
+    "NotionDBId": "750dc96ef1634658a24e29f269a3c05f"
+  },
+  {
+    "modelName": "PersonalInfoDB",
+    "columnMapObject": {
+      "headline": "%3B%3E%3Es",
+      "address": "%3B_hW",
+      "lastName": "%3CfA%3F",
+      "email": "g%5Cv%7B",
+      "firstName": "pjoz",
+      "mobile": "ymhT",
+      "title": "title"
+    },
+    "NotionDBId": "4123edab4ef140a78c14114c75ac2a86"
+  },
+  {
+    "modelName": "SkillsDB",
+    "columnMapObject": {
+      "dateAcq": "FGe%3E",
+      "certifications": "fpmN",
+      "subtype": "ogkn",
+      "projects": "vBOm",
+      "type": "xSDH",
+      "level": "~%40%5Do",
+      "name": "title",
+      "title": "title"
+      },
+    "NotionDBId": "39fcebcda36149aebe77b7b4428c87dd"
+  },
+  {
+    "modelName": "SocialLinksDB",
+    "columnMapObject": {
+      "displayName": "LW%3D_",
+      "type": "s%40%5EC",
+      "url": "%7CdBs",
+      "title": "title"
+      },
+    "NotionDBId": "70704f0302f24302b0859729884657eb"
   }
+
+  
 ]

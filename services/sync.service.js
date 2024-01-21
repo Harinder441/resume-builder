@@ -13,8 +13,16 @@ const createSyncMapping = async (mapBody) => {
   const syncMapping = await SyncMapping.create(mapBody);
   return syncMapping.save();
 };
+const updateSyncMapping = async (id,mapBody) => {
+  const syncMap = await SyncMapping.findById(id);
+  if(!syncMap){
+    throw new ApiError(httpStatus.BAD_REQUEST,"Map not found");
+  }
+  return syncMap.updateOne(mapBody);  
+}
 
 module.exports = {
   getSyncMapping,
   createSyncMapping,
+  updateSyncMapping
 };

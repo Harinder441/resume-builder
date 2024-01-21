@@ -26,22 +26,52 @@ async function syncData() {
     const syncList = await SyncMapping.find();
     let totalSynced = 0;
     for (const row of syncList) {
-      const { NotionDBId, columnMapObject, modelName, lastSyncedTime } = row;
-      const dataToSync = await getDataToSync(NotionDBId, lastSyncedTime);
-      totalSynced+=dataToSync.length;
-      for (const page of dataToSync) {
-        const { id, properties } = page;
-        await upsertDataToServer(modelName, columnMapObject, id, properties);
-      }
-      row.lastSyncedTime = new Date();
-      await row.save();
+      totalSynced += await getAndStoreNotionData(row);
     }
     await SyncDB.create({totalRowSynced:totalSynced});
   } catch (error) {
-    throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, "Sync Failed due to internal server Error");
+    throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, "Sync Failed due to internal server Error"+error.message);
   }
 }
+/**
+ * Asynchronously synchronizes data based on the provided model name.
+ *
+ * @param {String} modelName - The name of the model to sync data for.
+ * @return {Promise} A promise that resolves when the data synchronization is complete.
+ */
+async function syncDataByModelName(modelName){
+  try{
+    const syncMap = await SyncMapping.findOne({modelName:modelName});
+    if(!syncMap) return;
+    const totalRowSynced = await  getAndStoreNotionData(syncMap);
+    await SyncDB.create({totalRowSynced});
+  }catch(error){
+    throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, "Sync Failed due to internal server Error"+error.message);
+  }
+  
+}
 
+
+/**
+ * Asynchronously retrieves data from Notion and stores it based on the provided syncMap.
+ *
+ * @param {Object} syncMap - The map containing NotionDBId, columnMapObject, modelName, and lastSyncedTime.
+ * @return {number} The total number of items synced.
+ */
+async function getAndStoreNotionData(syncMap){
+  if(!syncMap) return;
+  let totalSynced = 0;
+  const { NotionDBId, columnMapObject, modelName, lastSyncedTime } = syncMap;
+  const dataToSync = await getDataToSync(NotionDBId, lastSyncedTime);
+  totalSynced+=dataToSync.length;
+  for (const page of dataToSync) {
+    const { id, properties } = page;
+    await upsertDataToServer(modelName, columnMapObject, id, properties);
+  }
+  syncMap.lastSyncedTime = new Date();
+  await syncMap.save();
+  return totalSynced;
+}
 /**
  * Get the column map from a Notion database by databaseId
  * @param {string} databaseId - The ID of the Notion database
@@ -143,13 +173,14 @@ function formatDBDataForSync(data) {
  */
 async function upsertDataToServer(modelName, columnMapObject, pageId, properties) {
   const dataToUpsert = {};
-  Object.keys(columnMapObject).forEach((key) => {
-    const colId = columnMapObject[key];
-    dataToUpsert[key] = colId in properties ? properties[colId] : null;
-  });
+  for (const [key, colId] of Object.entries(columnMapObject)) {
+    dataToUpsert[key] = properties[colId] ?? null;
+  }
   dataToUpsert.notionPageId = pageId;
+  const Models = require("../models/NotionModels");
+  if(!modelName in Models) return;
 
-  const Model = require("../models")[modelName];
+  const Model = Models[modelName];
 
   const isAlreadyExist = await Model.findOne({ notionPageId: pageId });
 
@@ -159,8 +190,93 @@ async function upsertDataToServer(modelName, columnMapObject, pageId, properties
     await Model.create(dataToUpsert);
   }
 }
+
+async function getOptionListForResume(modelName){
+  const Models = require("../models/NotionModels");
+  if(!modelName in Models) return;
+  const Model = Models[modelName];
+  let filters =getResumeFilters(modelName);
+  let sort = getResumeSort(modelName);
+  const data = await Model.find(filters,{title:1}).sort(sort);
+  const map = {};
+  if(data.length>0){
+    data.map(
+      (row)=>{
+        map[row._id] = row.title
+      }
+    )
+  }
+  return map;
+}
+/**
+ * Returns a map of all models and their respective columns.
+ *
+ * @return {Object} Map of models and their columns
+ */
+function getListOfAllModels(){
+  const Models = require("../models/NotionModels");
+  const listOfModels = Object.keys(Models);
+  const Map={};
+  listOfModels.forEach((model)=>{
+    Map[model] = getListOfColumnsOfModel(model);
+  })
+  return Map;
+}
+/**
+ * Gets the list of columns of the specified model.
+ *
+ * @param {string} modelName - The name of the model
+ * @return {array} The list of columns of the model
+ */
+function getListOfColumnsOfModel(modelName){
+  const Models = require("../models/NotionModels");
+  if(!modelName in Models) return;
+  const Model = Models[modelName];
+  const Map = Model.schema.paths;
+  const listOfColumns = Object.keys(Map);
+  return listOfColumns;
+}
+
+
+/**
+ * Retrieves filters for the specified model.
+ *
+ * @param {string} modelName - The name of the model to retrieve filters for.
+ * @return {object} The filters for the specified model.
+ */
+function getResumeFilters(modelName){
+  switch (modelName) {
+       case "ProjectsDB":
+          return {
+            status:"Done"
+          }
+       default:
+          return {}
+  }
+}
+
+/**
+ * Returns a sort function based on the modelName provided.
+ *
+ * @param {string} modelName - The name of the model used to determine the sort function.
+ * @return {function} The sort function based on the modelName.
+ */
+function getResumeSort(modelName) {
+  switch (modelName) {
+    case "ProjectsDB":
+      return {
+        days:-1
+      };
+    default:
+      return {};
+  }
+}
+
 module.exports = {
   getColumnMap,
   getDataFromNotionDB,
-  syncData
+  syncData,
+  getOptionListForResume,
+  getListOfAllModels,
+  syncDataByModelName
 };
