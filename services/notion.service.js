@@ -298,6 +298,28 @@ function getResumeSort(modelName) {
   }
 }
 
+/**
+ * Add a page to a Notion database
+ * @param {string} databaseId - The ID of the Notion database
+ * @param {object} data - The data attributes for the new page
+ * @returns {Promise<object>} - The newly created page object
+ */
+async function addPageToNotionDB(databaseId, data) {
+  try {
+    const response = await notion.pages.create({
+      parent: { database_id: databaseId },
+      ...data,
+    });
+    return response;
+  } catch (error) {
+    throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, "Failed to add page to Notion database: " + error.message);
+  }
+}
+// const database = async () => {
+//   const data = await notion.databases.retrieve({ database_id: "f7a68e29af754c80a9008463940e15e7" });
+//   console.log(data);
+// };
+// database();
 module.exports = {
   getColumnMap,
   getDataFromNotionDB,
@@ -306,5 +328,6 @@ module.exports = {
   getListOfAllModels,
   syncDataByModelName,
   getDatabaseList,
-  getListOfColumnsOfModel
+  getListOfColumnsOfModel,
+  addPageToNotionDB
 };

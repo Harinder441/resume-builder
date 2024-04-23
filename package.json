@@ -13,14 +13,17 @@
         "@babel/core": "^7.17.10",
         "@notionhq/client": "^2.2.14",
         "@testing-library/dom": "^8.13.0",
+        "axios": "^1.6.8",
+        "cheerio": "^1.0.0-rc.12",
         "cors": "^2.8.5",
         "dotenv": "^8.6.0",
         "express": "^4.18.2",
+        "http-status": "^1.4.0",
         "joi": "^17.11.0",
         "method-override": "^3.0.0",
         "mongoose": "^5.13.21",
         "nodemon": "^2.0.22",
-        "typescript": "^3.2.1",
-        "http-status": "^1.4.0"
+        "selenium-webdriver": "^4.19.0",
+        "typescript": "^3.2.1"
     }
 }
