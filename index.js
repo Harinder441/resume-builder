@@ -8,8 +8,9 @@ const ApiError = require("./utils/ApiError");
 const httpStatus = require("http-status");
 const { errorHandler } = require("./middlewares/error");
 const config = require("./config/config");
+const cors = require('cors');
 
-// parse
+app.use(cors());
 app.use(express.json());
 
 const port = 8082;

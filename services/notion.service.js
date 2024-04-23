@@ -3,7 +3,7 @@ const Config = require("../config/config");
 const { Sync:SyncDB,SyncMapping } = require("../models");
 const ApiError = require("../utils/ApiError");
 const httpStatus = require("http-status");
-
+const helperFunctions = require("../utils/helperFunctions");
 const notion = new Client({ auth: Config.notionAPI });
 /**
  * Get data from a Notion database by databaseId
@@ -90,6 +90,25 @@ async function getColumnMap(databaseId) {
     output[value.id] = key;
   });
   return output;
+}
+
+
+async function getDatabaseList() {
+  const response = await notion.search({
+    filter: {
+      'value': 'database',
+      'property': 'object'
+    }
+  });
+  if (!response) {
+    return null;
+  }
+  const {results} = response;
+  const map = {};
+  for (const result of results) {
+    map[result.id] = result.title[0]?.plain_text;
+  }
+  return map ;
 }
 
 /**
@@ -218,7 +237,7 @@ function getListOfAllModels(){
   const listOfModels = Object.keys(Models);
   const Map={};
   listOfModels.forEach((model)=>{
-    Map[model] = getListOfColumnsOfModel(model);
+    Map[model] = model;
   })
   return Map;
 }
@@ -233,8 +252,15 @@ function getListOfColumnsOfModel(modelName){
   if(!modelName in Models) return;
   const Model = Models[modelName];
   const Map = Model.schema.paths;
-  const listOfColumns = Object.keys(Map);
-  return listOfColumns;
+  delete Map._id;
+  delete Map.notionPageId;
+  delete Map.__v;
+  delete Map.title;
+  const NewMap ={};
+  Object.keys(Map).forEach((key)=>{
+    NewMap[key] = helperFunctions.capitalizeFirstLetter(key);
+  });
+  return NewMap;
 }
 
 
@@ -278,5 +304,7 @@ module.exports = {
   syncData,
   getOptionListForResume,
   getListOfAllModels,
-  syncDataByModelName
+  syncDataByModelName,
+  getDatabaseList,
+  getListOfColumnsOfModel
 };

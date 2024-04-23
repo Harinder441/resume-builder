@@ -10,7 +10,7 @@ const createSyncMapping = async (mapBody) => {
   if(isAlreadyExist){
     throw new ApiError(httpStatus.BAD_REQUEST,"Map already Exist");
   }
-  const syncMapping = await SyncMapping.create(mapBody);
+  const syncMapping = await SyncMapping.create(addCommonColumnMap(mapBody));
   return syncMapping.save();
 };
 const updateSyncMapping = async (id,mapBody) => {
@@ -18,9 +18,14 @@ const updateSyncMapping = async (id,mapBody) => {
   if(!syncMap){
     throw new ApiError(httpStatus.BAD_REQUEST,"Map not found");
   }
-  return syncMap.updateOne(mapBody);  
+  return syncMap.updateOne(addCommonColumnMap(mapBody));  
 }
-
+const addCommonColumnMap = (mapBody) => {
+  if(!"title" in mapBody.columnMapObject){
+    mapBody.columnMapObject.title = "title";
+  }
+  return mapBody;
+}
 module.exports = {
   getSyncMapping,
   createSyncMapping,
