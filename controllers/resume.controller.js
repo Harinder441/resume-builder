@@ -21,9 +21,16 @@ const getAllResume = catchAsync(async (req, res, next) => {
     const resumes = await resumeService.getAllResume();
     res.json(resumes);
 })
+
+const getAllLists = catchAsync(async (req, res, next) => {
+    const lists = await resumeService.getAllLists();
+    res.json(lists);
+})
+
 module.exports = {
     getResume,
     updateResume,
     createResume,
-    getAllResume
+    getAllResume,
+    getAllLists
 }

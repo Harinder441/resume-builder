@@ -32,9 +32,25 @@ const updateResume = async (id,resumeBody) => {
     return resume.updateOne(resumeBody);
 }
 
+const getAllLists = async () => {
+   
+    const notionModels = require("../models/NotionModels");
+    const lists ={};
+    for (const modelName in notionModels) {
+        if (Object.hasOwnProperty.call(notionModels, modelName)) {
+            const model = notionModels[modelName];
+            const list = await model.find();
+            lists[modelName] = list;
+        }
+    }
+
+    return lists;
+}
+
 module.exports = {
     getResumeById,
     getAllResume,
     createNewResume,
-    updateResume
+    updateResume,
+    getAllLists
 }
