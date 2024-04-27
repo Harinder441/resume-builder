@@ -2,6 +2,7 @@ const googleSheets = require("./googleSheets.service");
 
 const ApiError = require("../utils/ApiError");
 const httpStatus = require("http-status");
+const axios = require('axios');
 
 const spreadsheetId="10qazN2veVcJRMVO-FWzS46V6cKvjko1P7Msm6GzYf9c";
 const sheetName="2024-25 issue sheet";
@@ -68,6 +69,10 @@ const getIssues= async () => {
       throw new ApiError(httpStatus.BAD_REQUEST, error.message);
     }
   };
+
+  const createJiraIssue = async (row_index) => {
+
+  }
 
   module.exports = {
     getIssues,
