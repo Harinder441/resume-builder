@@ -13,8 +13,13 @@ const getIssues = catchAsync(async (req, res, next) => {
     }
     res.json(formattedList);
 });
+const jiraSyncNotionDB = catchAsync(async (req, res, next) => {
+    await service.jiraSyncNotionDB();
+    res.json("Successfully Synced");
+});
 
 module.exports = {
-    getIssues
+    getIssues,
+    jiraSyncNotionDB
 
 }

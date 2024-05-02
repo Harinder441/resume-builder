@@ -315,11 +315,45 @@ async function addPageToNotionDB(databaseId, data) {
     throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, "Failed to add page to Notion database: " + error.message);
   }
 }
+async function updatePageNotionDB(pageId, data){
+  try {
+    const response = await notion.pages.update({
+      page_id: pageId,
+      ...data,
+    });
+    return response;
+  } catch (error) {
+    throw new ApiError(httpStatus.INTERNAL_SERVER_ERROR, "Failed to update page in Notion database: " + error.message);
+  }
+}
 // const database = async () => {
 //   const data = await notion.databases.retrieve({ database_id: "f7a68e29af754c80a9008463940e15e7" });
 //   console.log(data);
 // };
 // database();
+const getParagraph = (text) => {
+  return  {
+    object: 'block',
+    type: 'paragraph',
+    paragraph: {
+      // text: [
+      //   {
+      //     type: 'text',
+      //     text: {
+      //       content: text,
+      //     },
+      //   },
+      // ],
+      rich_text: [
+        {
+          text: {
+            content: text
+          }
+        }
+      ]
+    },
+  }
+}
 module.exports = {
   getColumnMap,
   getDataFromNotionDB,
@@ -329,5 +363,7 @@ module.exports = {
   syncDataByModelName,
   getDatabaseList,
   getListOfColumnsOfModel,
-  addPageToNotionDB
+  addPageToNotionDB,
+  updatePageNotionDB,
+  getParagraph
 };
